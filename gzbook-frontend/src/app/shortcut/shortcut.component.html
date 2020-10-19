@@ -1,0 +1,33 @@
+  <div class="widget stick-widget mb-5">
+    <h4 class="widget-title">Menu</h4>
+    <ul class="naves">
+      <li>
+        <i class="ti-clipboard"></i>
+        <a [routerLink]="'/home'" title="Tin tức">Tin tức</a>
+      </li>
+      <li>
+        <i class="ti-files"></i>
+        <a [routerLink]="'/wall/' + userId" title="Dòng thời gian">Dòng thời gian</a>
+      </li>
+      <li>
+        <i class="ti-user"></i>
+        <a [routerLink]="'/list-friend'" title="Bạn bè">Bạn bè</a>
+      </li>
+      <li>
+        <i class="ti-image"></i>
+        <a [routerLink]="'/photo/' + userId" title="Ảnh">Ảnh</a>
+      </li>
+      <li>
+        <i class="ti-comments-smiley"></i>
+        <a [routerLink]="'/chat'" title="Tin nhắn">Tin nhắn</a>
+      </li>
+      <li>
+        <i class="ti-bell"></i>
+        <a href="#" title="Thông báo">Thông báo</a>
+      </li>
+      <li>
+        <i class="ti-power-off"></i>
+        <a (click)="logOut()" title="Đăng xuất">Đăng xuất</a>
+      </li>
+    </ul>
+  </div>

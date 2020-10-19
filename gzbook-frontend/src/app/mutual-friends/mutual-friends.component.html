@@ -1,0 +1,16 @@
+<div class="widget friend-list stick-widget">
+  <div [ngSwitch]="idLogin">
+    <h4 class="widget-title" *ngSwitchCase="idUser">Bạn bè</h4>
+    <h4 class="widget-title" *ngSwitchDefault>Bạn bè chung</h4>
+  </div>
+  <ul id="people-list" class="friendz-list">
+    <li *ngFor="let friend of friendList" [routerLink]="'/wall/' + friend.id">
+      <figure>
+        <img src="{{friend.avatarUrl}}" alt="" style="width: 2.4vw; height: 2.4vw; object-fit: cover" >
+      </figure>
+      <div class="friendz-meta">
+        <a >{{friend.username}}</a>
+      </div>
+    </li>
+  </ul>
+</div>

@@ -1,0 +1,142 @@
+<div class="theme-layout">
+  <div class="container-fluid pdng0">
+    <div class="row merged">
+      <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
+        <div class="land-featurearea" style="background-image: url(assets/images/crop.png)">
+          <div class="land-meta" style="font-family: Helvetica, sans-serif">
+            <h1 class="display-1">GZBook</h1>
+            <h3>GZBook giúp bạn kết nối và chia sẻ với mọi người trong cuộc sống của bạn.</h3>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12">
+        <div class="login-reg-bg">
+          <div class="log-reg-area sign">
+            <h2 class="log-title">Đăng nhập</h2>
+            <form *ngIf="!isLoggedIn" name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm">
+              <div class="form-group">
+                <input type="text" name="email" [(ngModel)]="form.email" #email="ngModel" required="required"/>
+                <label class="control-label" for="email">Email</label><i class="mtrl-select"></i>
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="f.submitted && email.invalid">Email bạn đã nhập
+                không khớp với bất kỳ tài khoản nào!
+              </div>
+              <div class="form-group">
+                <input type="password" name="password" [(ngModel)]="form.password" #password="ngModel"
+                       required="required"/>
+                <label class="control-label" for="password">Mật khẩu</label><i class="mtrl-select"></i>
+              </div>
+              <div class="alert alert-danger" role="alert" *ngIf="f.submitted && password.invalid">
+                <div *ngIf="password.errors.required">Mật khẩu bạn đã nhập không chính xác!</div>
+              </div>
+              <!--              <div class="checkbox">-->
+              <!--                <label>-->
+              <!--                  <input type="checkbox" checked="checked"/><i class="check-box"></i>Ghi nhớ đăng nhập-->
+              <!--                </label>-->
+              <!--              </div>-->
+              <a href="#" title="" class="forgot-pwd">Quên mật khẩu?</a>
+              <div class="submit-btns">
+                <button class="mtr-btn signin" type="submit"><span>Đăng nhập</span></button>
+                <button class="mtr-btn signup ml-1" type="button"><span>Đăng ký</span></button>
+              </div>
+              <div class="form-group">
+                <div class="alert alert-danger" role="alert" *ngIf="f.submitted && isLoginFailed">Đăng nhập thất
+                  bại: {{ errorMessage }}</div>
+              </div>
+            </form>
+          </div>
+
+          <div class="log-reg-area reg">
+            <h2 class="log-title">Đăng ký</h2>
+            <form *ngIf="!isSuccessful" name="form" (ngSubmit)="g.form.valid && register()" #g="ngForm">
+              <div class="form-group">
+                <input type="text" name="username" [(ngModel)]="form2.username" minlength="2" maxlength="20"
+                       #username="ngModel" required="required"/>
+                <label class="control-label" for="username">Họ và tên</label><i class="mtrl-select"></i>
+                <div class="alert-danger" *ngIf="g.submitted && username.invalid">
+                  <div *ngIf="username.errors.required">Tên bạn là gì?</div>
+                  <div *ngIf="username.errors.minlength">Tên người dùng không ít hơn 2 ký tự!</div>
+                  <div *ngIf="username.errors.maxlength">Tên người dùng không quá 20 ký tự!</div>
+                </div>
+              </div>
+
+              <div class="form-radio">
+                <div class="radio">
+                  <label>
+                    <input type="radio" value="Nam" name="gender" [(ngModel)]="form2.gender" #gender="ngModel"
+                           required="required"/><i class="check-box"></i>Nam
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" value="Nữ" name="gender" [(ngModel)]="form2.gender" #gender="ngModel"
+                           required="required"/><i class="check-box"></i>Nữ
+                  </label>
+                </div>
+                <div class="radio">
+                  <label>
+                    <input type="radio" value="Khác" name="gender" [(ngModel)]="form2.gender" #gender="ngModel"
+                           required="required"/><i class="check-box"></i>Khác
+                  </label>
+                </div>
+                <div class="alert-danger" *ngIf="g.submitted && gender.invalid">
+                  <div *ngIf="gender.errors.required">Giới tính của bạn là gì</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="email" name="email" [(ngModel)]="form2.email" email #email="ngModel" required="required"/>
+                <label class="control-label" for="email">Email</label><i class="mtrl-select"></i>
+                <div class="alert-danger" *ngIf="g.submitted && email.invalid">
+                  <div *ngIf="email.errors.required">Nhập vào email của bạn!</div>
+                  <div *ngIf="email.errors.email">Email không hợp lệ!</div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="password" name="password" [(ngModel)]="form2.password" minlength="6" #password="ngModel"
+                       required="required"/>
+                <label class="control-label" for="password">Mật khẩu</label><i class="mtrl-select"></i>
+                <div class="alert-danger" *ngIf="g.submitted && password.invalid">
+                  <div *ngIf="password.errors.required">Hãy nhập vào mật khẩu</div>
+                  <div *ngIf="password.errors.minlength">
+                    Mật khẩu phải dài hơn 6 ký tự
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <input type="password" name="confirmPassword" [(ngModel)]="form2.confirmPassword"
+                       #confirmPassword="ngModel" required="required" pattern="{{ password.value }}"/>
+                <label class="control-label" for="confirmPassword">Xác nhận mật khẩu</label><i class="mtrl-select"></i>
+                <div class="alert-danger" *ngIf="g.submitted && confirmPassword.invalid">
+                  <div *ngIf="confirmPassword.errors.required">Hãy nhập lại mật khẩu!</div>
+                  <div *ngIf="confirmPassword.errors.pattern">Xác nhận mật khẩu không khớp!</div>
+                </div>
+              </div>
+
+              <!--              <div class="checkbox">-->
+              <!--                <label>-->
+              <!--                  <input type="checkbox" required="required" #checkbox="ngModel"/><i class="check-box"></i>Tôi đồng ý với các điều khoản và chính sách bảo mật!-->
+              <!--                </label>-->
+              <!--                <div *ngIf="checkbox.errors.required">Hãy xác nhận các điều khoản và chính sách bảo mật!</div>-->
+              <!--              </div>-->
+
+              <a href="#" title="" class="already-have">Đã có tài khoản?</a>
+              <div class="submit-btns">
+                <button class="mtr-btn btn-block" type="submit"><span>Đăng ký</span></button>
+              </div>
+              <div class="alert alert-warning" *ngIf="g.submitted && isSignUpFailed">
+                Đăng ký thất bại!<br/>{{ errorMessage2 }}
+              </div>
+            </form>
+            <div class="alert alert-success" *ngIf="isSuccessful">
+              Đăng ký thành công!
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

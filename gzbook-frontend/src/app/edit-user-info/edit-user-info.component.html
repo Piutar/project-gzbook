@@ -1,0 +1,113 @@
+<app-header *ngIf="user"></app-header>
+<app-cover-photo *ngIf="user" [relatingId]="user.id" [relatedId]="user.id"></app-cover-photo>
+<div class="theme-layout" *ngIf="user">
+  <section>
+    <div class="gap gray-bg">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-lg-12">
+            <div class="row" id="page-contents">
+              <!-- sidebar -->
+              <div class="col-lg-3">
+                <aside class="sidebar static">
+                  <!-- Shortcuts -->
+                  <app-edit></app-edit>
+                  <app-shortcut></app-shortcut>
+                </aside>
+              </div>
+              <div class="col-lg-6">
+                <div class="central-meta">
+                  <div class="editing-info">
+                    <h5 class="f-title"><i class="ti-info-alt"></i>Thay đổi thông tin cá nhân</h5>
+                    <form [formGroup]="userEditForm" (ngSubmit)="editUser()">
+                      <div class="form-group half">
+                        <input type="text" id="input" formControlName="username" value="{{user.username}}"/>
+                        <label class="control-label" for="input">Họ và tên</label><i class="mtrl-select"></i>
+                        <div class="alert-danger" *ngIf="username.invalid && (username.touched || username.dirty)">
+                          <div *ngIf="username.errors.required">Tên bạn là gì?</div>
+                          <div *ngIf="username.errors.minlength">Tên người dùng không ít hơn 2 ký tự!</div>
+                          <div *ngIf="username.errors.maxlength">Tên người dùng không nhiều hơn 20 ký tự!</div>
+                        </div>
+                      </div>
+                      <div class="form-group half">
+                        <input type="text" formControlName="phoneNumber" value="{{user.phoneNumber}}"/>
+                        <label class="control-label" for="input">Số điện thoại</label><i class="mtrl-select"></i>
+                      </div>
+                      <div class="form-group">
+                        <input type="email" formControlName="email" value="{{user.email}}" required="required"
+                               [pattern]="emailPattern" (ngModelChange)="checkEmailExist()"/>
+                        <label class="control-label" for="input">Email</label><i class="mtrl-select"></i>
+                        <div class="alert-danger" *ngIf="email.invalid && (email.touched || email.dirty)">
+                          <div *ngIf="email.errors.required">Nhập vào email của bạn!</div>
+                          <div *ngIf="email.errors.pattern">Email không hợp lệ!</div>
+                        </div>
+                        <div class="alert-danger" *ngIf="emailExist">Email này đã được sử dụng</div>
+                      </div>
+                      <div class="dob">
+                        <div class="form-group">
+                          <label for="month" style="color: #0f7fe2; font-size: 12px">Tháng</label>
+                          <select class="form-control dropdown" id="month" [(ngModel)]="dateOfBirth[1]"
+                                  [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let month of months" [ngValue]="month"
+                                    [selected]="month == user.dateOfBirth.slice(3,5)">{{month}}</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="date" style="color: #0f7fe2; font-size: 12px">Ngày</label>
+                          <select class="form-control dropdown" id="date" [(ngModel)]="dateOfBirth[0]"
+                                  [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let date of dates" [ngValue]="date"
+                                    [selected]="date === user.dateOfBirth.slice(0,2)">{{date}}</option>
+                          </select>
+                        </div>
+                        <div class="form-group">
+                          <label for="year" style="color: #0f7fe2; font-size: 12px">Năm</label>
+                          <select class="form-control dropdown" id="year" [(ngModel)]="dateOfBirth[2]"
+                                  [ngModelOptions]="{standalone: true}">
+                            <option *ngFor="let year of years" [ngValue]="year"
+                                    [selected]="year === user.dateOfBirth.slice(6,10)">{{year}}</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-radio">
+                        <div class="radio" *ngFor="let gender of gender">
+                          <label>
+                            <input formControlName="gender" type="radio" name="gender" [value]="gender"
+                                   [checked]="gender === user.gender"><i class="check-box"></i>{{gender}}
+                          </label>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label for="country" style="color: #0f7fe2; font-size: 12px">Địa chỉ</label>
+                        <select class="form-control dropdown" id="country" formControlName="address">
+                          <option *ngFor="let country of address" [ngValue]="country"
+                                  [selected]="country === user.address">{{country}}</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <textarea rows="4" id="textarea" formControlName="about" value="{{user.about}}"></textarea>
+                        <label class="control-label" for="textarea">About Me</label><i class="mtrl-select"></i>
+                      </div>
+                      <div class="submit-btns">
+                        <button class="mtr-btn mr-1" [disabled]="userEditForm.invalid || emailExist"><span>Thay đổi</span>
+                        </button>
+                        <button type="button" class="mtr-btn ml-1" routerLink="/home"><span>Thoát</span></button>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+              </div>
+              <div class="col-lg-3">
+                <aside class="sidebar static">
+                  <!--                  <app-your-page></app-your-page>-->
+                  <!--                  <app-friend-list></app-friend-list>-->
+                </aside>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<app-footer></app-footer>

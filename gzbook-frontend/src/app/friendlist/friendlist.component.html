@@ -1,0 +1,75 @@
+<app-header></app-header>
+<app-cover-photo *ngIf="user" [relatingId]="user.id" [relatedId]="user.id"></app-cover-photo>
+<div class="gap gray-bg">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="row" id="page-contents">
+          <div class="col-lg-3">
+            <aside class="sidebar static">
+              <app-shortcut style="position: fixed; width: 250px"></app-shortcut>
+            </aside>
+          </div>
+          <div class="col-lg-6">
+            <div class="central-meta">
+              <div class="frnds">
+                <ul class="nav nav-tabs">
+                  <li class="nav-item"><a class="active" href="#frends" data-toggle="tab">Tất cả bạn bè</a>
+                    <span>{{sumListFriend}}</span></li>
+                  <li class="nav-item"><a class="" href="#frends-req" data-toggle="tab">Lời mời kết
+                    bạn</a><span>{{sumListPending}}</span></li>
+                </ul>
+
+                <!-- Tab panes -->
+                <div class="tab-content">
+                  <div class="tab-pane active fade show " id="frends">
+                    <ul class="nearby-contct">
+
+                      <li *ngFor="let friend of friendList; let i = index">
+                        <div class="nearly-pepls">
+                          <figure>
+                            <a [routerLink]="'/wall/'+friend.id"><img src="{{friend.avatarUrl}}" alt=""></a>
+                          </figure>
+                          <div class="pepl-info pl-4">
+                            <h4><a [routerLink]="'/wall/'+friend.id" title="">{{friend.username}}</a></h4>
+                            <a title="" class="add-butn" style="background: #d7184e; color: whitesmoke" data-ripple=""
+                               (click)="unFriend(friend.id,3,i)">Hủy kết bạn</a>
+                          </div>
+                        </div>
+                      </li>
+
+                    </ul>
+                    <div class="lodmore">
+                      <button class="btn-view btn-load-more"></button>
+                    </div>
+                  </div>
+
+                  <div class="tab-pane fade" id="frends-req">
+                    <ul class="nearby-contct">
+                      <li *ngFor="let friend of pendingList; let i = index">
+                        <div class="nearly-pepls">
+                          <figure>
+                            <a [routerLink]="'/wall/'+friend.id" title=""><img src="{{friend.avatarUrl}}"
+                                                                                    alt=""></a>
+                          </figure>
+                          <div class="pepl-info">
+                            <h4><a [routerLink]="'/wall/'+friend.id" title=""> {{friend.username}}</a></h4>
+                            <a title="" class="add-butn more-action " style="background: #d7184e; color: whitesmoke"
+                               (click)="acceptInviteFriend(friend.id,3,i)" data-ripple="">Xóa</a>
+                            <a title="" class="add-butn" data-ripple="" style="color: whitesmoke"
+                               (click)="acceptInviteFriend(friend.id,2,i)">Xác nhận</a>
+                          </div>
+                        </div>
+                      </li>
+                    </ul>
+                    <button class="btn-view btn-load-more"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

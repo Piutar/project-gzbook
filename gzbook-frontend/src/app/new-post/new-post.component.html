@@ -1,0 +1,37 @@
+<div class="central-meta" *ngIf="user">
+  <div class="new-postbox">
+    <figure>
+      <!--      <img style="height: 4.8vw; width: 4.8vw; object-fit: cover" src="{{user.userAvatar}}" alt="">-->
+    </figure>
+    <div class="newpst-input">
+      <form [formGroup]="creatPostForm" (ngSubmit)="creatPost()">
+        <textarea formControlName="textPost" rows="2"
+                  placeholder="{{user.username}} ơi, bạn đang nghĩ gì thế?"></textarea>
+        <!--        placeholder="Bạn đang nghĩ gì thế?"></textarea>-->
+        <img src="{{downloadURL}}" alt="">
+        <div class="attachments">
+          <ul>
+<!--            <li *ngIf="!downloadURL" class="mr-1">-->
+<!--              <label *ngIf="imageLink" class="mr-2 fileContainer">-->
+<!--                <input type="text" formControlName="imageUrl">-->
+<!--              </label>-->
+<!--              <i class="fa fa-image" (click)="insertImageLink()"></i>-->
+<!--            </li>-->
+            <li *ngIf="!downloadURL" class="mr-1">
+              <i class="fa fa-camera"></i>
+              <label class="fileContainer">
+                <input type="file" accept="image/*" (change)="uploadFile($event)">
+              </label>
+            </li>
+            <li *ngIf="downloadURL" class="mr-1">
+              <button class="btn-danger" (click)="cancelPostImg()"><i class="fa fa-ban"></i></button>
+            </li>
+            <li>
+              <button type="submit">Đăng</button>
+            </li>
+          </ul>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

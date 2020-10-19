@@ -1,0 +1,33 @@
+<div id="modal-a" class="modal-dialog modal-dialog-centered" role="document">
+  <div class="modal-content">
+    <div class="modal-header border-bottom-0">
+      <h5 class="modal-title" id="exampleModalLabel">Chỉnh sửa bài viết</h5>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <form #f="ngForm" (ngSubmit)="onSubmit(f)">
+      <div class="modal-body">
+        <div class="form-group description">
+          <textarea class="form-control" rows="3" cols="50" id="content" name="textPost" [ngModel]="post.textPost"></textarea>
+          <input class="form-control" type="text" hidden name="imagePost" [ngModel]="post.imageUrl">
+          <button *ngIf="post.imageUrl != ''" type="button" class="close mb-1" aria-label="Close" (click)="deleteImage()"><span aria-hidden="true" class="fa fa-trash"></span></button>
+          <label class="fileContainer" *ngIf="post.imageUrl === ''">
+            <i class="close fa fa-camera"></i>
+            <input type="file" accept="image/*" (change)="uploadFile($event)">
+          </label>
+          <img src="{{post.imageUrl}}" alt="">
+          <h6 class="m-3">Chọn quyền riêng tư</h6>
+          <select (change)="selectStatus($event.target.value)">
+            <option value="2">Công khai</option>
+            <option value="1">Bạn bè</option>
+            <option value="0">Chỉ mình tôi</option>
+          </select>
+        </div>
+      </div>
+      <div class="modal-footer border-top-0 d-flex justify-content-center">
+        <button type="submit" class="btn btn-success btn-block">Lưu</button>
+      </div>
+    </form>
+  </div>
+</div>

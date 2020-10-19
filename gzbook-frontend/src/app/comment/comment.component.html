@@ -1,0 +1,10 @@
+<div class="comet-avatar" *ngIf="user">
+  <img style="height: 2.8vw; width: 2.8vw; object-fit: cover" src="{{user.avatarUrl}}" alt="">
+</div>
+<div class="post-comt-box">
+  <form [formGroup]="addCommentForm" (ngSubmit)="addComment()">
+    <input class="form-control bg-light border-0" type="text" formControlName="content" placeholder="Viết bình luận..." aria-label="Search">
+    <input type="submit" style="display: none" />
+  </form>
+</div>
+

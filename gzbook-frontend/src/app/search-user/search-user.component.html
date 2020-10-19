@@ -1,0 +1,59 @@
+<app-header></app-header>
+<section>
+  <div class="gap gray-bg">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="row" id="page-contents">
+            <div class="col-lg-3">
+              <aside class="sidebar static">
+                <app-shortcut style="position: fixed; width: 250px"></app-shortcut>
+              </aside>
+            </div>
+            <div class="col-lg-6">
+              <div class="central-meta">
+                <div class="frnds">
+                  <ul class="nav nav-tabs">
+                    <li class="nav-item"><a class="active" href="#frends" data-toggle="tab">Người dùng</a>
+                      <span>{{sumUsers}}</span>
+                    </li>
+                  </ul>
+                  <form class="input-group mb-3" style="top: 10px" #f="ngForm" (ngSubmit)="onSubmit(f)">
+                    <input type="text" class="form-control" placeholder="Nhập tên người dùng cần tìm"
+                           aria-label="Recipient's username"
+                           aria-describedby="basic-addon2" name="username" ngModel>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-primary" type="submit">Tìm kiếm</button>
+                    </div>
+                  </form>
+                  <div class="tab-content">
+                    <div class="tab-pane active fade show " id="frends">
+                      <ul class="nearby-contct">
+                        <li *ngFor="let user of users; let i = index">
+                          <div class="nearly-pepls">
+                            <figure>
+                              <img src="{{user.avatarUrl}}" alt="" style="height: 3vw; width: 3vw; object-fit: cover">
+                            </figure>
+                            <div class="pepl-info">
+                              <h4>{{user.username}}</h4>
+                              <span>CodeGym</span>
+                              <a routerLink="/wall/{{user.id}}" title="" class="add-butn" data-ripple="">Chi tiết</a>
+                            </div>
+                          </div>
+                        </li>
+
+                      </ul>
+                      <div class="lodmore">
+                        <button class="btn-view btn-load-more"></button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

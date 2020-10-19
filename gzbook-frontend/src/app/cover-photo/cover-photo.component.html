@@ -1,0 +1,64 @@
+<section *ngIf="user && userLogin">
+  <div class="feature-photo">
+    <figure>
+      <img style="max-height: 400px; object-fit: cover" src="{{user.coverPhotoUrl}}" alt="">
+    </figure>
+    <div *ngIf="relatedId===relatingId; else noTitle">
+    </div>
+    <ng-template #noTitle>
+
+      <div *ngIf="isFriend; else notFriend">
+        <div class="add-btn">
+          <button class="mtr-btn" (click)="unfriend(relatedId,3)"><span>Hủy kết bạn</span></button>
+        </div>
+      </div>
+      <ng-template #notFriend>
+        <div class="add-btn">
+          <button class="mtr-btn" (click)="addFriend()"><span>Thêm bạn bè</span></button>
+        </div>
+      </ng-template>
+    </ng-template>
+    <form class="edit-phto" *ngIf="relatedId===userLogin.id">
+      <i class="fa fa-camera-retro"></i>
+      <label class="fileContainer">
+        Edit Cover Photo
+        <input type="file" id="coverPhoto" (change)="uploadFile($event, 1)"/>
+      </label>
+    </form>
+    <div class="container-fluid">
+      <div class="row merged">
+        <div class="col-lg-2 col-sm-3">
+          <div class="user-avatar boxed" style="width: 16vw">
+            <figure>
+              <img style="height: 15vw; object-fit: cover" src="{{user.avatarUrl}}" alt="">
+              <form class="edit-phto" *ngIf="relatedId===userLogin.id">
+                <i class="fa fa-camera-retro"></i>
+                <label class="fileContainer">
+                  Edit Display Photo
+                  <input type="file" (change)="uploadFile($event, 2)"/>
+                </label>
+              </form>
+            </figure>
+          </div>
+        </div>
+        <div class="col-lg-10 col-sm-9">
+          <div class="timeline-info">
+            <ul>
+              <li class="admin-name">
+                <h5 style="text-transform:capitalize">{{user.username}}</h5>
+              </li>
+              <li>
+                <a class="" [routerLink]="'/wall/'+ relatedId" title="" data-ripple="">Dòng thời gian</a>
+                <a class="" [routerLink]="'/photo/'+ relatedId" data-ripple="">Ảnh</a>
+                <a class="" [routerLink]="'/list-friend'" title="" data-ripple="">Bạn bè</a>
+                <a class="" [routerLink]="'/chat'" title="" data-ripple="">Tin nhắn</a>
+                <a class="" [routerLink]="'/user/'+ relatedId" title="" data-ripple="">Giới thiệu</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
